@@ -1,38 +1,78 @@
 /** @format */
 
-import React, {useState}from "react";
+import React, { useState } from "react";
 import { Typography, Button, Form, message, Input } from "antd";
-import { PlusSquareOutlined } from '@ant-design/icons';
+import { PlusSquareOutlined } from "@ant-design/icons";
 import Dropzone from "react-dropzone";
+import Axios from "axios";
 import TextArea from "antd/lib/input/TextArea";
 
 const { Title } = Typography;
 
-const PrivateOptions = [{value:0, label:"Private"},{value:1, label:"Public"}]
+const PrivateOptions = [
+  { value: 0, label: "Private" },
+  { value: 1, label: "Public" },
+];
 
-const CategoryOptions = [{value:0, label:"Film & Animation"}, {value:1, label:"Auto & Vehicles"},
-                         {value:2, label:"Music"}, {value:3, label:"Pets & Animals"}]
+const CategoryOptions = [
+  { value: 0, label: "Film & Animation" },
+  { value: 1, label: "Auto & Vehicles" },
+  { value: 2, label: "Music" },
+  { value: 3, label: "Pets & Animals" },
+];
 
 function VideoUploadPage() {
+  const [VideoTitle, setVideoTitle] = useState("");
+  const [Description, setDescription] = useState("");
+  const [Private, setPrivate] = useState(0); //Private 0, Public 1
+  const [Category, setCategory] = useState("Film & Animation");
+  const [FilePath, setFilePath] = useState("");
+  const [Duration, setDuration] = useState("");
+  const [ThumbnailPath, setThumbnailPath] = useState("");
 
-    const [VideoTitle, setVideoTitle] = useState("")
-    const [Description, setDescription] = useState("")
-    const [Private, setPrivate] = useState(0) //Private 0, Public 1
-    const [Category, setCategory] = useState("Film & Animation")
+  const VideoTitleHandler = (event) => {
+    setVideoTitle(event.currentTarget.value);
+  };
+  const DescriptionHandler = (event) => {
+    setDescription(event.currentTarget.value);
+  };
+  const onPrivateChange = (event) => {
+    setPrivate(event.currentTarget.value);
+  };
+  const onCategoryChange = (event) => {
+    setCategory(event.currentTarget.value);
+  };
+  //서버에 request 를 보내고 axios를 이용하는데. axios가 제이쿼리의 ajax와 똑같다고 보면됨.
+  const onDrop = (files) => {
+    let formData = new FormData();
+    const config = {
+      //같이 Axios로 보내지 않으면, 파일을 보낼떄는 오류가 생기기 때문 그래서 header 에 타입을 설정하는거
+      header: { "content-type": "multipart/form-data" },
+    };
+    formData.append("file", files[0]); //[0]한 이유는 정보의 0번쨰 내용을 바로 가져오기 위해
+    console.log(files);
+    Axios.post("/api/video/uploadfiles", formData, config).then((response) => {
+      if (response.data.success) {
+        //console.log(response.data);
+        let variable = { url: response.data.url, fileName: response.data.fileName };
 
-    const VideoTitleHandler = (event) =>{
-        setVideoTitle(event.currentTarget.value)
-    }
-    const DescriptionHandler = (event) =>{
-        setDescription(event.currentTarget.value)
-    }
-    const onPrivateChange = (event) =>{
-        setPrivate(event.currentTarget.value)
-    }
-    const onCategoryChange = (event) =>{
-        setCategory(event.currentTarget.value)
-    }
-    
+        setFilePath(response.data.url);
+
+        Axios.post("/api/video/thumbnail", variable).then((response) => {
+          if (response.data.success) {
+            setDuration(response.data.fileDuration); //video.js 72줄
+            setThumbnailPath(response.data.url); //video.js 71줄
+            //console.log(response.data);
+          } else {
+            alert("Fail Thumbnail making");
+          }
+        });
+      } else {
+        alert("Video Upload Failed");
+      }
+    });
+  };
+
   return (
     <div style={{ maxWidth: "700px", margin: "2rem auto" }}>
       <div style={{ textAlign: "center", marginBottom: "2rem" }}>
@@ -40,21 +80,32 @@ function VideoUploadPage() {
       </div>
       <Form onSubmit>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          {/* image plus */}
-          <Dropzone onDrop multiple maxSize>
+          {/* image plus 밑에 multiple은 복수 올리기 maxSize는 파일 사이즈*/}
+          <Dropzone onDrop={onDrop} multiple={false} maxSize={1000000000}>
             {({ getRootProps, getInputProps }) => (
-              <div style={{ width: "300px", height: "240px", border: "1px solid lightgray", display: "flex", alignItems: "center", justifyContent: "center", }}
+              <div
+                style={{
+                  width: "300px",
+                  height: "240px",
+                  border: "1px solid lightgray",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
                 {...getRootProps()}
               >
-                  <PlusSquareOutlined style={{fontSize:'30px'}}/>
+                <PlusSquareOutlined style={{ fontSize: "30px" }} />
                 <input {...getInputProps()} />
               </div>
             )}
           </Dropzone>
           {/* Tuhumnail */}
-          <div>
-            <img src alt />
-          </div>
+          {ThumbnailPath && (
+            //위에 ThumbnailPath가 있을때만 밑에께 렌더링 되어라
+            <div>
+              <img src={`http://localhost:5000/${ThumbnailPath}`} alt="thumbnail" />
+            </div>
+          )}
         </div>
         <br />
         <br />
@@ -67,15 +118,21 @@ function VideoUploadPage() {
         <br />
         <br />
         <select onChange={onPrivateChange}>
-            {PrivateOptions.map((item, index) => (
-               <option key={index} value={item.value}>{item.label}</option>))}
+          {PrivateOptions.map((item, index) => (
+            <option key={index} value={item.value}>
+              {item.label}
+            </option>
+          ))}
           {/* 맵은 항상 index를 넣어야 에러가 뜨지 않음 */}
         </select>
         <br />
         <br />
         <select onChange={onCategoryChange}>
-            {CategoryOptions.map((item, index)=>(
-               <option key={index} value={item.value}>{item.label}</option>))}
+          {CategoryOptions.map((item, index) => (
+            <option key={index} value={item.value}>
+              {item.label}
+            </option>
+          ))}
         </select>
         <br />
         <br />

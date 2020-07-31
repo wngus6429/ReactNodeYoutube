@@ -13,6 +13,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //application/json 가져옴
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+//app.use("/api/users", require("./routes/users"));
+app.use("/api/video", require("./routes/video"));
+app.use("/uploads", express.static("uploads"));
+//이거 있어야함, 이미지, CSS 파일 및 JavaScript 파일과 같은 정적 파일을 제공하려면
+//Express의 기본 제공 미들웨어 함수인 express.static을 사용하십시오.
+
 //mongoose는 MongoDb 연결 담당임, 뒤에 {useNew, Unified, useCre 등등 적어줘야 에러 안남}
 //.then()은 앞에 부분이 실행이 끝나면 호출됨. catch로 에러 잡기
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,7 +58,10 @@ app.post("/api/users/login", (req, res) => {
   User.findOne({ email: req.body.email }, (err, user) => {
     if (!user) {
       //해당하는 유저가 없을경우
-      return res.json({ loginSuccess: false, message: "제공된 이메일에 해당하는 유저가 없습니다." });
+      return res.json({
+        loginSuccess: false,
+        message: "제공된 이메일에 해당하는 유저가 없습니다.",
+      });
     }
     //요청한 이메일이 DB에 있으면 비밀번호가 맞는 비밀번호 인지 확인, compare이건 이름 자유임. 단 User.js도 바꾸기
     user.comparePassword(req.body.password, (err, isMatch) => {
