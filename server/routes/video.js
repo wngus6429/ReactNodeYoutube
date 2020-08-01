@@ -2,7 +2,7 @@
 
 const express = require("express");
 const router = express.Router();
-//const { Video } = require("../models/Video");
+const { Video } = require("../models/Video");
 const { auth } = require("../middleware/auth");
 const multer = require("multer");
 var ffmpeg = require("fluent-ffmpeg");
@@ -44,6 +44,18 @@ router.post("/uploadfiles", (req, res) => {
   });
 });
 //req를 통해서 VideoUploadPage.js에서 파일 보낸걸 받는다.
+
+
+router.post("/uploadVideo", (req, res) => {
+  //몽고 DB에 비디오 정보들을 저장한다. //const { Video } = require("../models/Video"); 불러옴
+ const video = new Video(req.body)//클라이언트에서 보낸 variables의 모든 정보를 받음.
+ //아래 save는 MongoDb 메소드임. 넣고 에러가 있을수 있으니 또 if 문 적어줌 콜백
+ video.save((err, doc) => {
+   if(err) return res.json({success:false, err})
+   res.status(200).json({success:true})
+ }) 
+});
+
 
 //api/video/thumbnail 앞에 지운 이유는 index.js 18줄에서 이미 앞에걸 적었기 때문이다.
 router.post("/thumbnail", (req, res) => {
