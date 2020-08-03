@@ -45,6 +45,23 @@ router.post("/uploadfiles", (req, res) => {
 });
 //req를 통해서 VideoUploadPage.js에서 파일 보낸걸 받는다.
 
+router.get("/getVideos", (req, res) => {
+  //비디오를 DB에서 가져와서 클라이언트에게 보낸다.(보여준다)
+  //find()는 몽고DB 메소드. 뒤에 populate 해야함.
+  Video.find().populate('writer').exec((err, videos) => {
+            if(err) return res.status(400).send(err);
+            res.status(200).json({ success: true, videos })
+        })
+
+});
+
+router.post("/getVideoDetail", (req, res) => {
+  //populate로 writer 기준으로 있는 정보 다 긁어옴 , 뒤에 exec videoDetail 보내느거지
+  Video.findOne({'_id':req.body.videoId}).populate('writer').exec((err,videoDetail) => {
+    if(err) return res.status(400).send(err)
+    return res.status(200).json({success:true, videoDetail}) //videoDetail정보를 보내는거지
+  })
+});
 
 router.post("/uploadVideo", (req, res) => {
   //몽고 DB에 비디오 정보들을 저장한다. //const { Video } = require("../models/Video"); 불러옴

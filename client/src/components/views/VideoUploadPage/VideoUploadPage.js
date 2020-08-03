@@ -7,6 +7,7 @@ import Dropzone from "react-dropzone";
 import Axios from "axios";
 import { useSelector } from "react-redux";
 import TextArea from "antd/lib/input/TextArea";
+import { withRouter } from "react-router-dom";
 
 const { Title } = Typography;
 
@@ -22,7 +23,7 @@ const CategoryOptions = [
   { value: 3, label: "Pets & Animals" },
 ];
 
-function VideoUploadPage() {
+function VideoUploadPage(props) {
   const user = useSelector((state) => state.user); //리덕스 State 보면 유저정보를 다 가져와서 넣음.
   const [VideoTitle, setVideoTitle] = useState("");
   const [Description, setDescription] = useState("");
@@ -91,7 +92,13 @@ function VideoUploadPage() {
     };
     Axios.post("/api/video/uploadVideo", variables).then((response) => {
       if (response.data.success) {
-        console.log(response.data);
+        //console.log(response.data);
+        message.success("Upload Success");
+        console.log(props);
+        setTimeout(() => {
+          props.history.push("/");
+        }, 2000);
+        //3초후에 / 페이지로 보내는거임
       } else {
         alert("Video Upload Fail");
       }
@@ -169,4 +176,4 @@ function VideoUploadPage() {
   );
 }
 
-export default VideoUploadPage;
+export default withRouter(VideoUploadPage);
