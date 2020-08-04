@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
+import { withRouter } from "react-router-dom";
 //rfce
 function Subscribe(props) {
   const [SubscribeNumber, setSubscribeNumber] = useState(0); //0부터 시작하니 초기치 0
@@ -43,6 +44,7 @@ function Subscribe(props) {
     } else {
       //구독중이 아니라면
       Axios.post("/api/subscribe/subscribe", subscribeVariable).then((response) => {
+        console.log(response);
         if (response.data.success) {
           setSubscribeNumber(SubscribeNumber + 1); //구독 안한 사람이 한거니까 +1이 되어야지
           setSubscribed(!Subscribed);
@@ -74,4 +76,4 @@ function Subscribe(props) {
   );
 }
 
-export default Subscribe;
+export default withRouter(Subscribe);

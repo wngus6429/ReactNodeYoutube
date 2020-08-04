@@ -82,6 +82,8 @@ function LandingPage(props) {
               {renderCards}
           </Row>
           <button onClick={onClickHandler}>로그아웃</button>
+          <a href="/subscription"><button>구독버튼</button></a>
+          <a href="/login"><button>로그인</button></a>
       </div>
   )
 }

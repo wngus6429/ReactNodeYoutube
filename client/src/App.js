@@ -9,9 +9,11 @@ import RegisterPage from "./components/views/RegisterPage/RegisterPage.js";
 import Auth from "./hoc/auth";
 import VideoUploadPage from "./components/views/VideoUploadPage/VideoUploadPage";
 import VideoDetailPage from "./components/views/VideoDetailPage/VideoDetailPage";
+import subscription from "./components/views/SubscriptionPage/SubscriptionPage";
 
 function App() {
   return (
+    //null은 아무나 들어갈수 있다. true 로그인한 사람만, false 로그인 안한 사람
     <Router>
       <div>
         <Switch>
@@ -20,6 +22,7 @@ function App() {
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
           <Route exact path="/video/upload" component={Auth(VideoUploadPage, true)} />
           <Route exact path="/video/:videoId" component={Auth(VideoDetailPage, null)} />
+          <Route exact path="/subscription" component={Auth(subscription, null)} />
         </Switch>
       </div>
     </Router>

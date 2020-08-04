@@ -18,7 +18,7 @@ router.post("/subscribeNumber", (req, res) => {
 router.post("/subscribed", (req, res) => {
   Subscriber.find({
     userTo: req.body.userTo,
-    userFrom: req.body.userForm,
+    userFrom: req.body.userFrom,
   }).exec((err, subscribe) => {
     if (err) return res.status(400).send(err);
     let result = false;
@@ -34,7 +34,7 @@ router.post("/subscribed", (req, res) => {
 
 router.post("/unSubscribe", (req, res) => {
   //맨 앞은 모델을 가져오는거
-  Subscriber.findOneAndDelete({ userTo: req.body.userTO, userFrom: req.body.userFrom }).exec(
+  Subscriber.findOneAndDelete({ userTo: req.body.userTo, userFrom: req.body.userFrom }).exec(
     (err, doc) => {
       //Subscriber 모델에서 가져온 doc
       if (err) return res.status(400).json({ success: false, err });
@@ -48,7 +48,7 @@ router.post("/subscribe", (req, res) => {
   const subscribe = new Subscriber(req.body); //body안에 userTO와 userFrom이 있겟지
   subscribe.save((err, doc) => {
     if (err) return res.json({ success: false, err });
-    res.status(200).json({ success: true });
+    res.status(200).json({ success: true, doc });
   });
 });
 

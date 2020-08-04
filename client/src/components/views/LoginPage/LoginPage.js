@@ -57,6 +57,9 @@ function LoginPage(props) {
 
         <button type="submit">Login</button>
       </form>
+      <a href="/">
+        <button>Go Home</button>
+      </a>
     </div>
   );
 }

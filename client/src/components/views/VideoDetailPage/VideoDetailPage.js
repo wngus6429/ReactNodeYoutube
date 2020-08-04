@@ -30,6 +30,9 @@ function VideoDetailPage(props) {
       <Row gutter={[16, 16]}>
         <Col lg={18} xs={24}>
           <div style={{ width: "100%", padding: "3rem 4rem" }}>
+            <a href="/subscription">
+              <button>Subscribe</button>
+            </a>
             <video
               style={{ width: "100%" }}
               src={`http://localhost:5000/${VideoDetail.filePath}`}
@@ -41,7 +44,7 @@ function VideoDetailPage(props) {
               actions={[
                 <Subscribe
                   userTo={VideoDetail.writer._id}
-                  userFrom={localStorage.getItem("userID")}
+                  userFrom={localStorage.getItem("userId")}
                 />,
               ]}
             >
