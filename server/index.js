@@ -49,7 +49,7 @@ app.post("/api/users/register", (req, res) => {
   //밑에 이건 몽고DB에서 오는 메소드
   user.save((err, userInfo) => {
     if (err) return res.json({ success: false, err }); //에러가 있으면 전달, 뒤 err가 에러메세지 전달 내용
-    return res.status(200).json({ success: true }); //status(200)이건 성공했다는 거임
+    return res.status(200).json({ success: true, userInfo }); //status(200)이건 성공했다는 거임
   });
   //회원가입할때 필요한 정보들은 client에서 가져오면 그것들은 데이터베이스에 넣어준다.
 });
@@ -61,7 +61,7 @@ app.post("/api/users/login", (req, res) => {
       //해당하는 유저가 없을경우
       return res.json({
         loginSuccess: false,
-        message: "제공된 이메일에 해당하는 유저가 없습니다.",
+        message: "This Email not Correct",
       });
     }
     //요청한 이메일이 DB에 있으면 비밀번호가 맞는 비밀번호 인지 확인, compare이건 이름 자유임. 단 User.js도 바꾸기

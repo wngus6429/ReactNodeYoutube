@@ -26,6 +26,11 @@ function VideoDetailPage(props) {
   }, []);
 
   if (VideoDetail.writer) {
+    //본인이 작성한 글에 subscription 버튼이 보이면 안되니까
+    const subscribeButton = VideoDetail.writer._id !== localStorage.getItem("userId") && (
+      <Subscribe userTo={VideoDetail.writer._id} userFrom={localStorage.getItem("userId")} />
+    );
+
     return (
       <Row gutter={[16, 16]}>
         <Col lg={18} xs={24}>
@@ -40,14 +45,7 @@ function VideoDetailPage(props) {
               //autoPlay={true}
               loop={true}
             ></video>
-            <List.Item
-              actions={[
-                <Subscribe
-                  userTo={VideoDetail.writer._id}
-                  userFrom={localStorage.getItem("userId")}
-                />,
-              ]}
-            >
+            <List.Item actions={[subscribeButton]}>
               {/* 이렇게 할수 있는 이유는 populate로 정보를 다 긁어와서 활용이 가능한거임 */}
               <List.Item.Meta
                 avatar={<Avatar src={VideoDetail.writer.image} />}
