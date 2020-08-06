@@ -37,7 +37,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
         }
       });
     }, []);
-    return <SpecificComponent />;
+    return <SpecificComponent {...props} />;
   }
   return AuthenticationCheck;
 }

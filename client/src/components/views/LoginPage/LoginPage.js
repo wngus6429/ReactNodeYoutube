@@ -26,6 +26,7 @@ function LoginPage(props) {
       //user_action으로 넘어감
       //dispatch 로그인 한 다음에 다음 화면으로 넘어가야지?
       if (response.payload.loginSuccess) {
+        window.localStorage.setItem("userId", response.payload.userId);
         props.history.push("/");
       } else {
         alert("Error");
@@ -34,20 +35,10 @@ function LoginPage(props) {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        height: "100vh",
-      }}
-    >
-      <form
-        style={{ display: "flex", flexDirection: "column" }}
-        action=""
-        onSubmit={onSubmitHandler}
-      >
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center",
+                  width: "100%", height: "100vh", }}  >
+      <form style={{ display: "flex", flexDirection: "column" }}
+            action="" onSubmit={onSubmitHandler}  >
         <label htmlFor="">Email</label>
         <input type="email" value={Email} onChange={onEmailHandler} />
         <label htmlFor="">Password</label>
@@ -58,8 +49,7 @@ function LoginPage(props) {
         <button type="submit">Login</button>
       </form>
       <a href="/">
-        <button>Go Home</button>
-      </a>
+        <button>Go Home</button></a>
     </div>
   );
 }

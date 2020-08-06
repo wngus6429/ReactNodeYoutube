@@ -17,6 +17,7 @@ app.use(cookieParser());
 //app.use("/api/users", require("./routes/users"));
 app.use("/api/video", require("./routes/video")); //이게 있어야 routes 파일 접근가능
 app.use("/api/subscribe", require("./routes/subscribe")); //이게 있어야 routes 파일 접근가능
+app.use("/api/comment", require("./routes/Comment"));
 app.use("/uploads", express.static("uploads"));
 //이거 있어야함, 이미지, CSS 파일 및 JavaScript 파일과 같은 정적 파일을 제공하려면
 //Express의 기본 제공 미들웨어 함수인 express.static을 사용하십시오.
@@ -96,7 +97,7 @@ app.get("/api/users/auth", auth, (req, res) => {
 
 app.get("/api/users/logout", auth, (req, res) => {
   // console.log('req.user', req.user)
-  User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
+  User.findOneAndUpdate({ _id: req.user._id }, { token: "", tokenExp: "" }, (err, user) => {
     if (err) return res.json({ success: false, err });
     return res.status(200).send({
       success: true,

@@ -3,9 +3,10 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, List, Avatar, Button } from "antd";
 import Axios from "axios";
-import { withRouter } from "react-router-dom";
+//import { withRouter } from "react-router-dom";
 import SideVideo from "./Section/SideVideo";
 import Subscribe from "./Section/Subscribe";
+import Comment from "./Section/Comment";
 
 //전체가 24임. 가로 , 메인 영상 큰곳이 18이고 오른쪽께 8 정도의 가로 넓이를 가진다
 function VideoDetailPage(props) {
@@ -13,6 +14,7 @@ function VideoDetailPage(props) {
   const variable = { videoId: videoId };
 
   const [VideoDetail, setvideoDetail] = useState([]);
+
   useEffect(() => {
     //비디오에 해당하는 ID를 보내야 가져올수 있겟지
     Axios.post("/api/video/getVideoDetail", variable).then((response) => {
@@ -55,6 +57,7 @@ function VideoDetailPage(props) {
             </List.Item>
 
             {/* Comments */}
+            <Comment {...props} />
           </div>
         </Col>
         <Col lg={6} xs={24}>
@@ -67,4 +70,5 @@ function VideoDetailPage(props) {
   }
 }
 
-export default withRouter(VideoDetailPage);
+export default VideoDetailPage;
+//export default withRouter(VideoDetailPage);
