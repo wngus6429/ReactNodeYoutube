@@ -14,6 +14,7 @@ function VideoDetailPage(props) {
   const variable = { videoId: videoId };
 
   const [VideoDetail, setvideoDetail] = useState([]);
+  const [Comments, setComments] = useState([]);
 
   useEffect(() => {
     //비디오에 해당하는 ID를 보내야 가져올수 있겟지
@@ -25,7 +26,21 @@ function VideoDetailPage(props) {
         alert("Video Information Import Fail");
       }
     });
+
+    Axios.post("/api/comment/getComments", variable).then((response) => {
+      if (response.data.success) {
+        setComments(response.data.comments);
+        console.log(response.data.comments);
+      } else {
+        alert("Fail");
+      }
+    });
   }, []);
+
+  const refreshFuntion = (newComment) => {
+    setComments(Comments.concat(newComment));
+    //여기서 위에 저장하고, 저장한게 밑으로 Comment 컴포넌트로 가서 생성
+  };
 
   if (VideoDetail.writer) {
     //본인이 작성한 글에 subscription 버튼이 보이면 안되니까
@@ -57,7 +72,7 @@ function VideoDetailPage(props) {
             </List.Item>
 
             {/* Comments */}
-            <Comment {...props} />
+            <Comment refreshFuntion={refreshFuntion} commentLists={Comments} {...props} />
           </div>
         </Col>
         <Col lg={6} xs={24}>

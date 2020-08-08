@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Axios from "axios";
 import { useSelector } from "react-redux";
+import SingleComment from "./SingleComment";
 //리덕스 훅에서 온거,
 
 function Comment(props) {
@@ -28,6 +29,8 @@ function Comment(props) {
     Axios.post("/api/comment/saveComment", variables).then((response) => {
       if (response.data.success) {
         console.log(response.data.result);
+        setcommentValue(""); //이렇게 해줘야 글 쓰고 submit하면 텅빈 input이 됨
+        props.refreshFuntion(response.data.result); //videoDetailPage로감
       } else {
         alert("Comment Save Failed");
       }
@@ -39,7 +42,18 @@ function Comment(props) {
       <br />
       <p>Replies</p>
       <hr />
-
+      {/* 이게 있으면, true라면 */}
+      {props.commentLists &&
+        props.commentLists.map(
+          (comment, index) =>
+            !comment.responseTo && (
+              <SingleComment
+                refreshFuntion={props.refreshFuntion}
+                comment={comment}
+                postId={videoId}
+              />
+            )
+        )}
       {/* Comment Lists */}
       {/* Root Comment Form */}
       <form style={{ display: "flex" }} onSubmit={onSubmit}>
