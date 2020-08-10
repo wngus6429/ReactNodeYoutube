@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import Axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector } from "react-redux"; //리덕스 훅에서 온거,
 import SingleComment from "./SingleComment";
-//리덕스 훅에서 온거,
+import ReplyComment from "./ReplyComment";
 
 function Comment(props) {
   //console.log(props);
@@ -40,20 +40,29 @@ function Comment(props) {
   return (
     <div>
       <br />
-      <p>Replies</p>
+      <p>Comment</p>
       <hr />
       {/* 이게 있으면, true라면 */}
       {props.commentLists &&
         props.commentLists.map(
           (comment, index) =>
             !comment.responseTo && (
-              <SingleComment
-                refreshFuntion={props.refreshFuntion}
-                comment={comment}
-                postId={videoId}
-              />
+              <>
+                <SingleComment
+                  refreshFuntion={props.refreshFuntion}
+                  comment={comment}
+                  postId={videoId}
+                />
+                <ReplyComment
+                  refreshFuntion={props.refreshFuntion}
+                  parentCommentId={comment._id}
+                  postId={videoId}
+                  commentLists={props.commentLists}
+                />
+              </>
             )
         )}
+
       {/* Comment Lists */}
       {/* Root Comment Form */}
       <form style={{ display: "flex" }} onSubmit={onSubmit}>

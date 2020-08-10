@@ -17,7 +17,7 @@ function SingleComment(props) {
   };
 
   const onHandleChange = (event) => {
-    setCommentValue(event.currentTarget.CommentValue); //타이핑 가능하게
+    setCommentValue(event.currentTarget.value); //타이핑 가능하게
   };
 
   const onSubmit = (event) => {
@@ -33,6 +33,7 @@ function SingleComment(props) {
       if (response.data.success) {
         console.log(response.data.result);
         setCommentValue("");
+        setOpenReply(false);
         props.refreshFuntion(response.data.result);
       } else {
         alert("Comment Save Failed");
