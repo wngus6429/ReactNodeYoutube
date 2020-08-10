@@ -24,7 +24,7 @@ function Comment(props) {
     const variables = {
       content: commentValue,
       writer: user.userData._id, //리덕스에서 가져와봄
-      postId: videoId, //즉 비디오ID라고 보면됨
+      videoId: videoId, //즉 비디오ID라고 보면됨
     };
     Axios.post("/api/comment/saveComment", variables).then((response) => {
       if (response.data.success) {
@@ -51,12 +51,12 @@ function Comment(props) {
                 <SingleComment
                   refreshFuntion={props.refreshFuntion}
                   comment={comment}
-                  postId={videoId}
+                  videoId={videoId}
                 />
                 <ReplyComment
                   refreshFuntion={props.refreshFuntion}
                   parentCommentId={comment._id}
-                  postId={videoId}
+                  videoId={videoId}
                   commentLists={props.commentLists}
                 />
               </>

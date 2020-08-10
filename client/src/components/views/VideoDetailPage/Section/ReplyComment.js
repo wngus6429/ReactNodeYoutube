@@ -26,13 +26,13 @@ function ReplyComment(props) {
                 key={index}
                 refreshFuntion={props.refreshFuntion}
                 comment={comment}
-                postId={props.videoId} //videoId랑 postId랑 똑같은거라 생각하면됨
+                videoId={props.videoId} //videoId랑 videoId랑 똑같은거라 생각하면됨
               />
               <ReplyComment
                 key={index}
                 refreshFuntion={props.refreshFuntion}
                 commentLists={props.commentLists}
-                postId={props.videoId}
+                videoId={props.videoId}
                 parentCommentId={comment._id}
               />
             </div>
