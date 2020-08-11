@@ -48,17 +48,10 @@ function Comment(props) {
           (comment, index) =>
             !comment.responseTo && (
               <>
-                <SingleComment
-                  refreshFuntion={props.refreshFuntion}
-                  comment={comment}
-                  videoId={videoId}
-                />
-                <ReplyComment
-                  refreshFuntion={props.refreshFuntion}
-                  parentCommentId={comment._id}
-                  videoId={videoId}
-                  commentLists={props.commentLists}
-                />
+                <SingleComment refreshFuntion={props.refreshFuntion} comment={comment}
+                  videoId={videoId} />
+                <ReplyComment  refreshFuntion={props.refreshFuntion} parentCommentId={comment._id}
+                  videoId={videoId} commentLists={props.commentLists} />
               </>
             )
         )}
@@ -66,12 +59,8 @@ function Comment(props) {
       {/* Comment Lists */}
       {/* Root Comment Form */}
       <form style={{ display: "flex" }} onSubmit={onSubmit}>
-        <textarea
-          style={{ width: "100%", borderRadius: "5px" }}
-          onChange={handleClick}
-          value={commentValue}
-          placeholder="Let's Comment Input"
-        ></textarea>
+        <textarea style={{ width: "100%", borderRadius: "5px" }} onChange={handleClick}
+          value={commentValue} placeholder="Let's Comment Input" ></textarea>
         <br />
         <button style={{ width: "20%", height: "52px" }} onClick={onSubmit}>
           Submit

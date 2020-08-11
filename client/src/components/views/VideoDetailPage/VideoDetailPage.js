@@ -3,10 +3,10 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, List, Avatar, Button } from "antd";
 import Axios from "axios";
-//import { withRouter } from "react-router-dom";
 import SideVideo from "./Section/SideVideo";
 import Subscribe from "./Section/Subscribe";
 import Comment from "./Section/Comment";
+import LikeDislike from "./Section/LikeDislikes";
 
 //전체가 24임. 가로 , 메인 영상 큰곳이 18이고 오른쪽께 8 정도의 가로 넓이를 가진다
 function VideoDetailPage(props) {
@@ -62,7 +62,12 @@ function VideoDetailPage(props) {
               //autoPlay={true}
               loop={true}
             ></video>
-            <List.Item actions={[subscribeButton]}>
+            <List.Item
+              actions={[
+                <LikeDislike video userId={localStorage.getItem("userId")} videoId={videoId} />,
+                subscribeButton,
+              ]}
+            >
               {/* 이렇게 할수 있는 이유는 populate로 정보를 다 긁어와서 활용이 가능한거임 */}
               <List.Item.Meta
                 avatar={<Avatar src={VideoDetail.writer.image} />}

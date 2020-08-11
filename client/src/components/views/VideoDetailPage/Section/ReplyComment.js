@@ -22,19 +22,10 @@ function ReplyComment(props) {
         <>
           {comment.responseTo === parentCommentId && (
             <div style={{ width: "80%", marginLeft: "40px" }}>
-              <SingleComment
-                key={index}
-                refreshFuntion={props.refreshFuntion}
-                comment={comment}
-                videoId={props.videoId} //videoId랑 videoId랑 똑같은거라 생각하면됨
-              />
-              <ReplyComment
-                key={index}
-                refreshFuntion={props.refreshFuntion}
-                commentLists={props.commentLists}
-                videoId={props.videoId}
-                parentCommentId={comment._id}
-              />
+              <SingleComment key={index} refreshFuntion={props.refreshFuntion} //videoId랑 videoId랑 똑같은거라 생각하면됨
+                comment={comment} videoId={props.videoId} /> 
+              <ReplyComment key={index} refreshFuntion={props.refreshFuntion} commentLists={props.commentLists}
+                videoId={props.videoId} parentCommentId={comment._id} />
             </div>
           )}
         </>
@@ -42,9 +33,7 @@ function ReplyComment(props) {
     });
   //여기
 
-  const onHandleChange = () => {
-    setOpenReplyComments(!OpenReplyComments);
-  };
+  const onHandleChange = () => {setOpenReplyComments(!OpenReplyComments);};
 
   return (
     <div>
