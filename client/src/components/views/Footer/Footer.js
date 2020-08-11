@@ -1,9 +1,20 @@
 /** @format */
 
-import React from "react";
+import React from 'react'
+import {SmileTwoTone} from '@ant-design/icons';
+import styled from "styled-components";
+
 
 function Footer() {
-  return <div>Footer</div>;
+    return (
+        <div style={{
+            height: '40px', display: 'flex',
+            justifyContent: 'center', fontSize:'20px',
+            backgroundColor: "rgba(20, 20, 20, 0.8)"
+        }}>
+           <p style={{ color:'yellow' ,alignItems:'center'}}> Happy Music  <SmileTwoTone style={{fontSize:'20px'}}/></p>
+        </div>
+    )
 }
 
-export default Footer;
+export default Footer

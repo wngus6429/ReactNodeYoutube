@@ -29,18 +29,6 @@ function LandingPage(props) {
     });
   }, []);
 
-
-  const onClickHandler = () => {
-    Axios.get("/api/users/logout").then((response) => {
-      //console.log(response.data);
-      if (response.data.success) {
-        props.history.push("/login"); //history는 react-router-dom 의 withRouter를 사용한다.
-      } else {
-        alert("Logout Fail");
-      }
-    });
-  };
-
   const renderCards = Video.map((video, index) => {
     var minutes = Math.floor(video.duration / 60);
     var seconds = Math.floor(video.duration - minutes * 60);
@@ -81,9 +69,6 @@ function LandingPage(props) {
           <Row gutter={16}>
               {renderCards}
           </Row>
-          <button onClick={onClickHandler}>로그아웃</button>
-          <a href="/subscription"><button>구독버튼</button></a>
-          <a href="/login"><button>로그인</button></a>
       </div>
   )
 }

@@ -10,11 +10,14 @@ import Auth from "./hoc/auth";
 import VideoUploadPage from "./components/views/VideoUploadPage/VideoUploadPage";
 import VideoDetailPage from "./components/views/VideoDetailPage/VideoDetailPage";
 import subscription from "./components/views/SubscriptionPage/SubscriptionPage";
+import Footer from "./components/views/Footer/Footer.js";
+import NavBar from "./components/views/NavBar/NavBar.js";
 
 function App() {
   return (
     //null은 아무나 들어갈수 있다. true 로그인한 사람만, false 로그인 안한 사람
     <Router>
+      <NavBar />
       <div>
         <Switch>
           <Route exact path="/" component={Auth(LandingPage, null, true)} />
@@ -25,6 +28,7 @@ function App() {
           <Route exact path="/subscription" component={Auth(subscription, null)} />
         </Switch>
       </div>
+      <Footer/>
     </Router>
   );
 }
