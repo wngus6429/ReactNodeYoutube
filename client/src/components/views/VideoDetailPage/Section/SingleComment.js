@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useState } from "react";
-import { Comment, Avatar, Button, Input } from "antd";
+import { Comment, Avatar} from "antd";
 import { useSelector } from "react-redux";
 import Axios from "axios";
 import LikeDislikes from "./LikeDislikes";

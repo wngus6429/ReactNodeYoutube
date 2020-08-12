@@ -26,7 +26,7 @@ function LikeDislikes(props) {
         //얼마나 많은 좋아요를 받았는지
         setLikes(response.data.likes.length);
         //내가 이미 그 좋아요를 눌렀는지
-        response.data.likes.map((like) => {
+        response.data.likes.map((like) => { 
           //15분경
           if (like.userId === props.userId) {
             //뒤는 내 자신, 앞에꺼는 response.data.likes 많은 사람들이 누른거
@@ -117,13 +117,13 @@ function LikeDislikes(props) {
     <div>
       <span key="comment-basic-like">
         <LikeFilled style={{ fontSize: "12px" }} theme={LikeAction === "liked" ? "color:red" : "color:white"}
-          onClick={onLike} />
+                    onClick={onLike} />
         <span style={{ paddingLeft: "8px", cursor: "auto" }}>{Likes}</span>
       </span>
       &nbsp;&nbsp;
       <span key="comment-basic-dislike">
         <DislikeOutlined style={{ fontSize: "12px" }} theme={DisLikeAction === "disliked" ? "color:red" : "color:white"}
-          onClick={onDislike} />
+                         onClick={onDislike} />
         <span style={{ paddingLeft: "8px", cursor: "auto" }}>{DisLikes}</span>
       </span>
     </div>

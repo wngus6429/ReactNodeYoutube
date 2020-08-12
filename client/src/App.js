@@ -1,8 +1,7 @@
 /** @format */
 
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import LandingPage from "./components/views/LandingPage/LandingPage.js";
 import LoginPage from "./components/views/LoginPage/LoginPage.js";
 import RegisterPage from "./components/views/RegisterPage/RegisterPage.js";
@@ -34,9 +33,3 @@ function App() {
 }
 
 export default App;
-
-{
-  /* <Route path="/register">
-  <RegisterPage />
-</Route>; */
-}

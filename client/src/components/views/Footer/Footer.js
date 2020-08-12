@@ -2,8 +2,6 @@
 
 import React from 'react'
 import {SmileTwoTone} from '@ant-design/icons';
-import styled from "styled-components";
-
 
 function Footer() {
     return (
