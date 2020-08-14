@@ -14,3 +14,5 @@ export default function (state = {}, action) {
       return state;
   }
 }
+
+//데이터는 같은 폴더의 index.js 에서 받아간다

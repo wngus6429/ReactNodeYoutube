@@ -14,7 +14,7 @@ import Reducer from "./_reducers/index";
 
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore);
 //promise와 thunk 같은 미들웨어를 써야지 객체에 액션만 받는 리덕스 스토어가, 프로미스와 펑션을 받는다.
-
+//applyMiddleware(promiseMiddleware, ReduxThunk) 합해서 뒤에 (createStore) 라고 생각하면됨
 ReactDOM.render(
   <Provider
     store={createStoreWithMiddleware(

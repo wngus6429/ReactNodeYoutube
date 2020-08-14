@@ -15,8 +15,10 @@ function LandingPage(props) {
   const [Video, setVideo] = useState([]); //배열에다가 당연 담아야지
 
   //랜딩페이지 오자마자 밑에꺼 실행, axios.get으로 서버로 보내고
-  //index.js 에서 정보를 타고  response로 옴
-  //Dom이 로드되자마자 무엇을 한번 할것인지. 뒤에 있으면 한번실행 없으면 계속 실행
+  //정보를 타고  response로 옴 https://velog.io/@velopert/react-hooks
+  //만약 useEffect 에서 설정한 함수가 컴포넌트가 화면에 가장 처음 렌더링 될 때만 
+  //실행되고 업데이트 할 경우에는 실행 할 필요가 없는 경우엔 함수의 두번째 파라미터로 
+  //비어있는 배열을 넣어주시면 됩니다.
   useEffect(() => {
     //랜딩페이지 오자마자
     Axios.get("/api/video/getVideos").then((response) => {

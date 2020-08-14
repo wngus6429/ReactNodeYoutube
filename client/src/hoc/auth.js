@@ -16,7 +16,6 @@ export default function (SpecificComponent, option, adminRoute = null) {
       //auth() 이거를 user_action, auth()안에 백엔드 정보가 담겨있음
       dispatch(auth()).then((response) => {
         console.log(response);
-
         //로그인 하지 않은 상태
         if (!response.payload.isAuth) {
           //false면 로그인 하지 않은 상태지

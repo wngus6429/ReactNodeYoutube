@@ -46,7 +46,6 @@ function RegisterPage(props) {
     };
     dispatch(registerUser(body)).then((response) => {
       //dispatch 로그인 한 다음에 다음 화면으로 넘어가야지?
-      console.log("쓰벌", response);
       if (response.payload.success) {
         props.history.push("/login");
       } else {
