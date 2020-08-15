@@ -45,8 +45,8 @@ router.post("/uploadfiles", (req, res) => {
 //req를 통해서 VideoUploadPage.js에서 파일 보낸걸 받는다.
 
 router.get("/getVideos", (req, res) => {
-  //비디오를 DB에서 가져와서 클라이언트에게 보낸다.(보여준다)
-  //find()는 몽고DB 메소드. 뒤에 populate 해야함.
+  //find()는 몽고DB 메소드. 뒤에 populate 해야함. 아니면 writer만 가져옴
+  //모델 type: Schema.Types.ObjectId 하고 관계가 있음
   Video.find()
     .populate("writer")
     .exec((err, videos) => {

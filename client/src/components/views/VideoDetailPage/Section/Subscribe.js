@@ -17,10 +17,9 @@ function Subscribe(props) {
         alert("Subscribe Information Input Fail");
       }
     });
-
-    let subscribedVariable = { userTo: props.userTo, userFrom: localStorage.getItem("userId") };
     //구독하는지 안하는지 알고 싶으니까
-    Axios.post("/api/subscribe/subscribed", subscribedVariable).then((response) => {
+    let subscribedVariable = { userTo: props.userTo, userFrom: localStorage.getItem("userId") };
+        Axios.post("/api/subscribe/subscribed", subscribedVariable).then((response) => {
       if (response.data.success) {
         setSubscribed(response.data.subscribed);
       } else {
@@ -57,16 +56,9 @@ function Subscribe(props) {
 
   return (
     <div>
-      <button
-        style={{
-          backgroundColor: `${Subscribed ? "#AAAAAA" : "#CC0000"}`,
-          borderRadius: "4px",
-          color: "white",
-          padding: "10px, 16px",
-          fontWeight: "500",
-          fontSize: "1rem",
-          textTransform: "uppercase",
-        }}
+      <button style={{ backgroundColor: `${Subscribed ? "#AAAAAA" : "#CC0000"}`,
+          borderRadius: "4px", color: "white", padding: "10px, 16px",
+          fontWeight: "500", fontSize: "1rem", textTransform: "uppercase", }}
         onClick={onSubscribe}
       >
         {SubscribeNumber}

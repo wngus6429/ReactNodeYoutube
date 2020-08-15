@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 
 const subscriberSchema = mongoose.Schema(
   {
+    //subscribe 하는 사람과 받는 사람으로 2개의 케이스
     userTo: {
       type: Schema.Types.ObjectId,
       ref: "User",

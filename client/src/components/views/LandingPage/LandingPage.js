@@ -29,13 +29,13 @@ function LandingPage(props) {
         alert("Video Rendering Fail");
       }
     });
-  }, []);
+  }, []); //[]을 넣음으로서 한번만 , 아무것도 없이 비어있으면 계속 실행
 
   const renderCards = Video.map((video, index) => {
     var minutes = Math.floor(video.duration / 60);
     var seconds = Math.floor(video.duration - minutes * 60);
 
-    return (
+    return (// 전체가 24사이즈, 미디움사이즈 8 , 화면이 가장 클때는 칼럼 사이즈가 6
       <Col lg={6} md={8} xs={24}>
         <div style={{ position: "relative" }}>
            <a href={`/video/${video._id}`}> {/*상세 화면으로 가기 위해 링크 걸음 */}

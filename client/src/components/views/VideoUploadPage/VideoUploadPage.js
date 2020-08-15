@@ -85,7 +85,7 @@ function VideoUploadPage(props) {
     };
     Axios.post("/api/video/uploadVideo", variables).then((response) => {
       if (response.data.success) {
-        //console.log(response.data);
+        //console.log(response.data); //석세스 츠루
         message.success("Upload Success");
         console.log(props);
         setTimeout(() => {

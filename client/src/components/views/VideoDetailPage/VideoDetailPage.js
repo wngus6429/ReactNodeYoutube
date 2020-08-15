@@ -42,8 +42,9 @@ function VideoDetailPage(props) {
     //여기서 위에 저장하고, 저장한게 밑으로 Comment 컴포넌트로 가서 생성
   };
 
+  //밑에 if 적는 이유는 writer가 있으면 표시 한다는 이야기 이거 안 붙이면 71번 에러남 (이미지 가져오기전 렌더링 되어서)
   if (VideoDetail.writer) {
-    //본인이 작성한 글에 subscription 버튼이 보이면 안되니까
+    //본인이 작성한 글에 subscription 버튼이 보이면 안되니까 밑에꺼 작성
     const subscribeButton = VideoDetail.writer._id !== localStorage.getItem("userId") && (
       <Subscribe userTo={VideoDetail.writer._id} userFrom={localStorage.getItem("userId")} />
     );
@@ -72,7 +73,6 @@ function VideoDetailPage(props) {
                 description={VideoDetail.description}
               />
             </List.Item>
-
             {/* Comments */}
             <Comment refreshFuntion={refreshFuntion} commentLists={Comments} {...props} />
           </div>

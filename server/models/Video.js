@@ -1,39 +1,44 @@
+/** @format */
+
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const videoSchema = mongoose.Schema({
+const videoSchema = mongoose.Schema(
+  {
     writer: {
-        type:Schema.Types.ObjectId, //글쓴이를 넣는데.이렇게 하는 이유는 User schema 전체 정보를 긁어올수 있음
-        ref:'User' //불러 오는곳
+      type: Schema.Types.ObjectId, //글쓴이를 넣는데.이렇게 하는 이유는 User schema 전체 정보를 긁어올수 있음
+      ref: "User", //불러 오는 곳, 모델이라 생각하면 편함.
     },
-    title:{
-        type:String,
-        maxlength:50
+    title: {
+      type: String,
+      maxlength: 50,
     },
-    description:{
-        type:String
+    description: {
+      type: String,
     },
-    privacy:{
-        type:Number
+    privacy: {
+      type: Number,
     },
-    filePath:{
-        type:String
+    filePath: {
+      type: String,
     },
-    category:{
-        type:String
+    category: {
+      type: String,
     },
-    views:{
-        type:Number, 
-        default:0 //view 수가 처음부터 0부터 시작하니까
+    views: {
+      type: Number,
+      default: 0, //view 수가 처음부터 0부터 시작하니까
     },
-    duration:{
-        type:String
+    duration: {
+      type: String,
     },
-    thumbnail:{
-        type:String
-    }
-}, { timestamps:true }); //글쓴거 업로드 한거 날짜 적어야 하니까.
+    thumbnail: {
+      type: String,
+    },
+  },
+  { timestamps: true }
+); //글쓴거 업로드 한거 날짜 적어야 하니까.
 
-const Video = mongoose.model("Video" , videoSchema)
+const Video = mongoose.model("Video", videoSchema);
 
-module.exports = {Video}
+module.exports = { Video };

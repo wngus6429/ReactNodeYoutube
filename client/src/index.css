@@ -11,19 +11,3 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
-
-.duration {
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  margin: 4px;
-  color: #fff;
-  background-color: rgba(red, green, blue, alpha);
-  opacity: 0.8;
-  padding: 2px 4px;
-  border-radius: 2px;
-  letter-spacing: 0.5px;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 12px;
-}
