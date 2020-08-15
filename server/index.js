@@ -18,7 +18,6 @@ app.use("/api/comment", require("./routes/comment"));
 app.use("/api/like", require("./routes/like"));
 //////////////////////////////////////////////////////////////////////////////////////////////
 app.use("/uploads", express.static("uploads"));
-app.use(express.static("client/build"));
 //이거 있어야함, 이미지, CSS 파일 및 JavaScript 파일과 같은 정적 파일을 제공하려면
 //Express의 기본 제공 미들웨어 함수인 express.static을 사용하십시오.
 //////////////////////////////////////////////////////////////////////////////////////////////

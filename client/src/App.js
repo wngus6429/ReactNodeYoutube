@@ -14,7 +14,7 @@ import NavBar from "./components/views/NavBar/NavBar.js";
 
 function App() {
   return (
-    //null은 아무나 들어갈수 있다. true 로그인한 사람만, false 로그인 안한 사람
+    //null은 아무나 들어갈수 있다. true 로그인한 사람만, false 로그인 안한 사람이다
     <Router>
       <NavBar />
       <div>
