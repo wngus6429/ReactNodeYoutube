@@ -48,23 +48,20 @@ function VideoUploadPage(props) {
   //서버에 request 를 보내고 axios를 이용하는데. axios가 제이쿼리의 ajax와 똑같다고 보면됨.
   const onDrop = (files) => {
     let formData = new FormData();
-    const config = {
-      //같이 Axios로 보내지 않으면, 파일을 보낼떄는 오류가 생기기 때문 그래서 header 에 타입을 설정하는거
+    const config = {//같이 Axios로 보내야함 그래서 header 에 타입을 설정하는거
       header: { "content-type": "multipart/form-data" },
     };
     formData.append("file", files[0]); //[0]한 이유는 정보의 0번쨰 내용을 바로 가져오기 위해
     console.log(files);
     Axios.post("/api/video/uploadfiles", formData, config).then((response) => {
       if (response.data.success) {
-        //console.log(response.data);
+        //console.log(response.data); //밑에 url 파일 경로
         let variable = { url: response.data.url, fileName: response.data.fileName };
-
         setFilePath(response.data.url);
-
         Axios.post("/api/video/thumbnail", variable).then((response) => {
           if (response.data.success) {
-            setDuration(response.data.fileDuration); //video.js 72줄
-            setThumbnailPath(response.data.url); //video.js 71줄
+            setDuration(response.data.fileDuration); //video.js 126줄
+            setThumbnailPath(response.data.url); //video.js 125줄
             //console.log(response.data);
           } else {
             alert("Fail Thumbnail making");
@@ -81,14 +78,10 @@ function VideoUploadPage(props) {
     //밑에 자료들은 리덕스를 통해서 가져온다. import { useSelector } from "react-redux";
     //const user = useSelector((state) => state.user); 에서 데이터 가져온거 활용
     const variables = {
-      writer: user.userData._id,
-      title: VideoTitle,
-      description: Description,
-      privacy: Private,
-      filePath: FilePath,
-      category: Category,
-      duration: Duration,
-      thumbnail: ThumbnailPath,
+      writer: user.userData._id, title: VideoTitle,
+      description: Description,  privacy: Private,
+      filePath: FilePath,        category: Category,
+      duration: Duration,        thumbnail: ThumbnailPath,
     };
     Axios.post("/api/video/uploadVideo", variables).then((response) => {
       if (response.data.success) {
@@ -116,14 +109,8 @@ function VideoUploadPage(props) {
           <Dropzone onDrop={onDrop} multiple={false} maxSize={1000000000}>
             {({ getRootProps, getInputProps }) => (
               <div
-                style={{
-                  width: "300px",
-                  height: "240px",
-                  border: "1px solid lightgray",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
+                style={{ width: "300px",  height: "240px", border: "1px solid lightgray",
+                  display: "flex", alignItems: "center", justifyContent: "center" }}
                 {...getRootProps()}
               >
                 <PlusSquareOutlined style={{ fontSize: "30px" }} />
@@ -133,11 +120,11 @@ function VideoUploadPage(props) {
           </Dropzone>
           {/* Tuhumnail */}
           {ThumbnailPath && (
-            //위에 ThumbnailPath가 있을때만 밑에께 렌더링 되어라
             <div>
-              <img src={`http://localhost:5000/${ThumbnailPath}`} alt="thumbnail" />
-            </div>
-          )}
+            <img src={`http://localhost:5000/${ThumbnailPath}`} alt="thumbnail" />
+          </div>
+            //위에 ThumbnailPath가 있을때만 밑에께 렌더링 되어라
+            )}
         </div>
         <br />
         <br />

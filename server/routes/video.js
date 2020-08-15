@@ -3,7 +3,6 @@
 const express = require("express");
 const router = express.Router();
 const { Video } = require("../models/Video");
-const { auth } = require("../middleware/auth");
 const { Subscriber } = require("../models/Subscriber");
 const multer = require("multer");
 var ffmpeg = require("fluent-ffmpeg");
@@ -28,15 +27,13 @@ let storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage }).single("file");
+const upload = multer({ storage: storage }).single("file"); //파일 하나만
 
 //=================================
-//             Video
+//             Video   비디오를 서버에 저장한다 npm install multer
 //=================================
 
-//api/video/uploadfiles 앞에 지운 이유는 index.js 18줄에서 이미 앞에걸 적었기 때문이다.
 router.post("/uploadfiles", (req, res) => {
-  //비디오를 서버에 저장한다 npm install multer
   upload(req, res, (err) => {
     if (err) {
       return res.json({ success: false, err }); //alert("Video Upload Failed")로 감
@@ -101,7 +98,6 @@ router.post("/getSubscriptionVideos", (req, res) => {
   });
 });
 
-//api/video/thumbnail 앞에 지운 이유는 index.js 18줄에서 이미 앞에걸 적었기 때문이다.
 router.post("/thumbnail", (req, res) => {
   //썸네일 생성 하고 비디오 러닝타임도 가져오기
   let filePath = "";
