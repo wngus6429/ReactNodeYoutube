@@ -44,7 +44,7 @@ function VideoDetailPage(props) {
 
   //밑에 if 적는 이유는 writer가 있으면 표시 한다는 이야기 이거 안 붙이면 71번 에러남 (이미지 가져오기전 렌더링 되어서)
   if (VideoDetail.writer) {
-    //본인이 작성한 글에 subscription 버튼이 보이면 안되니까 밑에꺼 작성
+    //본인이 작성한 글에 subscription 버튼이 보이면 안되니까 밑에꺼 작성, 두개가 다르면 Subscribe 컴포넌트 소환
     const subscribeButton = VideoDetail.writer._id !== localStorage.getItem("userId") && (
       <Subscribe userTo={VideoDetail.writer._id} userFrom={localStorage.getItem("userId")} />
     );

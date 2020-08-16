@@ -79,9 +79,7 @@ router.post("/getSubscriptionVideos", (req, res) => {
   //자신의 아이디를 가지고 구독하는 사람들을 찾는다.
   Subscriber.find({ userFrom: req.body.userFrom }).exec((err, subscribers) => {
     if (err) return res.status(400).send(err);
-
     let subscribedUser = [];
-
     subscribers.map((subscriber, i) => {
       subscribedUser.push(subscriber.userTo);
     });

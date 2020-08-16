@@ -22,9 +22,9 @@ function Comment(props) {
   const onSubmit = (event) => {
     event.preventDefault();
     const variables = {
-      content: commentValue,
+      content: commentValue, //62줄에 있는거
       writer: user.userData._id, //리덕스에서 가져와봄
-      videoId: videoId, //즉 비디오ID라고 보면됨
+      videoId: videoId, //즉 비디오ID라고 보면됨, 댓글이 있는 위치쯤 되겠지?
     };
     Axios.post("/api/comment/saveComment", variables).then((response) => {
       if (response.data.success) {
@@ -55,7 +55,6 @@ function Comment(props) {
               </>
             )
         )}
-
       {/* Comment Lists */}
       {/* Root Comment Form */}
       <form style={{ display: "flex" }} onSubmit={onSubmit}>
