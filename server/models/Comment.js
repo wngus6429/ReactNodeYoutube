@@ -10,7 +10,6 @@ const commentSchema = mongoose.Schema(
       ref: "User",
     },
     videoId: {
-      //videoId로 해도됨
       type: Schema.Types.ObjectId,
       ref: "Video",
     },

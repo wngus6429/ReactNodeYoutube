@@ -31,11 +31,12 @@ function ReplyComment(props) {
         </>
       );
     });
-  //여기
+  //23은 본 댓글이랑 대댓글 연결하기 위해, 본 댓글은 responseTo가 없음
 
   const onHandleChange = () => {setOpenReplyComments(!OpenReplyComments);};
 
   return (
+    // childCommentNumber가 0 보다 크면 랜더링 되게끔
     <div>
       {ChildCommentNumber > 0 && (
         <p style={{ fontSize: "14px", margin: 0, color: "gray" }} onClick={onHandleChange}>
@@ -44,6 +45,7 @@ function ReplyComment(props) {
       )}
       {OpenReplyComments && renderReplyComment(props.parentCommentId)}
     </div>
+    //OpenReplyComments 가 True 일때 대댓글이 보이게함
   );
 }
 

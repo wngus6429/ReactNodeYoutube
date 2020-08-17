@@ -83,8 +83,7 @@ router.post("/getSubscriptionVideos", (req, res) => {
     subscribers.map((subscriber, i) => {
       subscribedUser.push(subscriber.userTo);
     });
-
-    //찾은 사람들의 비디오를 가지고 온다. 위에 81의 subscriberUser가 복수 일수 있으니, req.body.id 이건 한명
+    //찾은 사람들의 비디오를 가지고 온다. 위에 82의 subscriberUser가 복수 일수 있으니, req.body.id 이건 한명
     //몽고 DB의 새로운 기능, subscriberUser에 여러명 들어있어도 들어있는 모든 사람들의 ID를 가지고 writer를 찾을수 잇다
     //populate는 앞에 id 밖에 없으니까. 여러 정보를 가져오기 위해
     Video.find({ writer: { $in: subscribedUser } })

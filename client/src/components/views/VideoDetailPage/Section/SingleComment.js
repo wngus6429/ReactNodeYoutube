@@ -28,13 +28,13 @@ function SingleComment(props) {
       content: CommentValue,
       writer: user.userData._id, //리덕스에서 가져와봄
       videoId: props.videoId, //즉 비디오ID라고 보면됨
-      responseTo: props.comment._id,
+      responseTo: props.comment._id, //대댓글 다는거니 필요, 기존 Comment 꺼와는 다름
     };
     Axios.post("/api/comment/saveComment", variables).then((response) => {
       if (response.data.success) {
         console.log(response.data.result);
-        setCommentValue("");
-        setOpenReply(false);
+        setCommentValue(""); //글 썻고 submit 했으니 빈공간 되어야지
+        setOpenReply(false); //글 썻으니 닫아야지
         props.refreshFuntion(response.data.result);
       } else {
         alert("Comment Save Failed");
@@ -51,13 +51,12 @@ function SingleComment(props) {
 
   return (
     <div>
-      <Comment
-        actions={actions}
+      <Comment actions={actions}
         author={props.comment.writer.name}
         avatar={<Avatar src={props.comment.writer.image} alt="image" />}
         content={<p>{props.comment.content}</p>}
       ></Comment>
-      {/* OpenReply가 true 일 때만 뒤에 꺼 보임, 초기치가 위에 false라서 눌러야 보임 */}
+      {/* OpenReply가 true 일 때만 밑에 꺼 보임, 초기치가 위에 false라서 눌러야 보임 */}
       {OpenReply && (
         <form style={{ display: "flex" }} onSubmit={onSubmit}>
           <textarea
