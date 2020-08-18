@@ -42,7 +42,9 @@ function Comment(props) {
       <br />
       <p>Comment</p>
       <hr />
-      {/* 이게 있으면, true라면 */}
+      {/* commentLists 이게 있으면, true라면, map으로 돌려서 표시함 */}
+      {/* 첫번째 댓글은 responseTo가 없고 대댓글들은 있다.  !comment.responseTo*/}
+      {/* !comment.responseTo는 responseTo가 없는 애들만 표시  */}
       {props.commentLists &&
         props.commentLists.map(
           (comment, index) =>

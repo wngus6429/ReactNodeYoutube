@@ -35,6 +35,10 @@ router.post("/getDisLikes", (req, res) => {
   });
 });
 
+////////////////////////////////////////////////////////////
+// get과 밑에 up, un variable차이에 주목 뒤에 userId가 붙는다
+////////////////////////////////////////////////////////////
+
 router.post("/upLike", (req, res) => {
   let variable = {};
   if (req.body.videoId) {
@@ -92,6 +96,7 @@ router.post("/upDislike", (req, res) => {
   dislike.save((err, dislikeResult) => {
     if (err) return res.json({ success: false, err });
     //만약에 Like이 이미 클릭이 되어 있다면, Like을 1 줄여준다.
+    //줄여주는 방식이 삭제 방식임.
     Like.findOneAndDelete(variable).exec((err, likeResult) => {
       if (err) return res.status(400).json({ success: false, err });
       res.status(200).json({ success: true });

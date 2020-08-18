@@ -13,12 +13,10 @@ function LikeDislikes(props) {
 
   let variable = {};
   if (props.video) {
-    variable = { videoId: props.videoId, userId: props.userId }; //videoDetail 68
+    variable = { videoId: props.videoId, userId: props.userId }; //videoDetail 67
   } else {
     variable = { commentId: props.commentId, userId: props.userId }; //singleComment 46
   }
-
-  //const variable = {};
 
   useEffect(() => {
     Axios.post("/api/like/getLikes", variable).then((response) => {
@@ -29,7 +27,7 @@ function LikeDislikes(props) {
         response.data.likes.map((like) => { 
           //15분경
           if (like.userId === props.userId) {
-            //뒤는 내 자신, 앞에꺼는 response.data.likes 많은 사람들이 누른거
+            //뒤는 로컬스토리지의 자신, 앞에꺼는 response.data.likes 많은 사람들이 누른거
             setLikeAction("liked");
           }
         });
@@ -57,14 +55,14 @@ function LikeDislikes(props) {
   }, []);
 
   const onLike = () => {
+    //클릭이 안되어 있을때
     if (LikeAction === null) {
-      //클릭이 안되어 있을때
       Axios.post("/api/like/upLike", variable).then((response) => {
         if (response.data.success) {
           setLikes(Likes + 1);
           setLikeAction("liked");
-
           if (DisLikeAction !== null) {
+            //dislike가 클릭 되어 있을때를 생각
             setDisLikeAction(null);
             setDisLikes(DisLikes - 1);
           }
@@ -73,7 +71,7 @@ function LikeDislikes(props) {
         }
       });
     } else {
-      //z클릭이 되어 있었을때
+      //클릭이 되어 있었을때
       Axios.post("/api/like/unLike", variable).then((response) => {
         if (response.data.success) {
           setLikes(Likes - 1);
@@ -103,6 +101,7 @@ function LikeDislikes(props) {
           setDisLikeAction("disliked");
 
           if (LikeAction !== null) {
+            //Like가 클릭되어 있다면
             setLikeAction(null);
             setLikes(Likes - 1);
           }
@@ -116,14 +115,12 @@ function LikeDislikes(props) {
   return (
     <div>
       <span key="comment-basic-like">
-        <LikeFilled style={{ fontSize: "12px" }} theme={LikeAction === "liked" ? "color:red" : "color:white"}
-                    onClick={onLike} />
+        <LikeFilled style={{ fontSize: "12px" }} onClick={onLike} />
         <span style={{ paddingLeft: "8px", cursor: "auto" }}>{Likes}</span>
       </span>
       &nbsp;&nbsp;
       <span key="comment-basic-dislike">
-        <DislikeOutlined style={{ fontSize: "12px" }} theme={DisLikeAction === "disliked" ? "color:red" : "color:white"}
-                         onClick={onDislike} />
+        <DislikeOutlined style={{ fontSize: "12px" }} onClick={onDislike} />
         <span style={{ paddingLeft: "8px", cursor: "auto" }}>{DisLikes}</span>
       </span>
     </div>
